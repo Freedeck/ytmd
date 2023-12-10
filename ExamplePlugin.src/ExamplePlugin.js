@@ -1,8 +1,7 @@
 const path = require("path");
 const Plugin = require(path.resolve('./src/classes/Plugin'));
 
-class EntrypointTEst extends Plugin {
-	testvar = 0;
+class ExamplePlugin extends Plugin {
     constructor() {
         super('Freedeck 6: Example Plugin', 'Freedeck', 'fd.plugins.example', false);
     }
@@ -10,6 +9,9 @@ class EntrypointTEst extends Plugin {
     onInitialize () {
         console.log('Initialized example plugin.')
         this.registerNewType('Example Plugin Test', 'fd.plugins.example');
+        this.createSaveData();
+        this.setToSaveData('test', 'It works!');
+        console.log('Saved test data: ' + this.getFromSaveData('test'));
         return true;
     }
 
@@ -20,5 +22,6 @@ class EntrypointTEst extends Plugin {
 }
 
 module.exports = {
-	exec: () => new EntrypointTEst()
+	exec: () => new ExamplePlugin(),
+ 	class: ExamplePlugin
 }

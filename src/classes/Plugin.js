@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 module.exports = class Plugin {
     name;
     author;
@@ -14,8 +17,35 @@ module.exports = class Plugin {
         if (this.disabled) return;
         this.hasInit = this.onInitialize();
         if (!this.hasInit) {
-            console.log('Plugin didn\'t initialize?');
+            console.log('[DEV ENV] Plugin didn\'t initialize?');
         }
+    }
+
+    createSaveData() {
+        if (!fs.existsSync(path.resolve('./plugins'))) {
+            fs.mkdirSync(path.resolve('./plugins'));
+            console.log('Failsafe created plugins folder!')
+          }
+          if (!fs.existsSync(path.resolve('./plugins/'+this.id))) {
+            fs.mkdirSync(path.resolve('./plugins/'+this.id));
+            console.log('Created '+this.id+' data folder!')
+          }
+          if (!fs.existsSync(path.resolve('./plugins/'+this.id+'/settings.json'))) {
+            fs.writeFileSync(path.resolve('./plugins/'+this.id+'/settings.json'), JSON.stringify({}));
+          }
+    }
+
+    getFromSaveData(k) {
+        this.createSaveData()
+        let data = JSON.parse(fs.readFileSync(path.resolve('./plugins/'+this.id+'/settings.json')));
+        return data[k];
+    }
+
+    setToSaveData(k, v) {
+        this.createSaveData();
+        let data = JSON.parse(fs.readFileSync(path.resolve('./plugins/'+this.id+'/settings.json')));
+        data[k] = v;
+        fs.writeFileSync(path.resolve('./plugins/'+this.id+'/settings.json'), JSON.stringify(data));
     }
 
     pushNotification(value, options=null) {
@@ -28,14 +58,16 @@ module.exports = class Plugin {
     }
 
     registerNewType (name, type) {
-        console.log('Registered new type: ' + name + ' (' + type + ')');
+        console.log('[DEV ENV] Registered new type: ' + name + ' (' + type + ')');
     }
 
     onInitialize () {
+        console.log('[DEV ENV] This plugin has no initialization function.')
         return true;
     }
 
     onButton (interaction) {
+        console.log('[DEV ENV] This plugin has no button press function.')
         return true;
     }
 }
