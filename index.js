@@ -24,7 +24,7 @@ const FDE_Settings = {
 function buildPhase() {
 	return new Promise((resolve, reject) => {
 		console.log('Building!')
-		asar.createPackage(FDE_Settings.BundlePrebuild, FDE_Settings.BundleName).then(() => {
+		asar.createPackage(FDE_Settings.BundlePrebuild + ".src", FDE_Settings.BundleName).then(() => {
 			console.log('Created bundle: ' + FDE_Settings.BundleName)
 			extractPhase().then(() => {
 			}).catch(console.error)
