@@ -6,6 +6,9 @@ module.exports = class Plugin {
     author;
     id;
     disabled;
+    jsSHook;
+    jsSockHook;
+    jsCHook;
     hasInit = false;
 
     constructor(name, author, id, disabled = false) {
@@ -19,6 +22,36 @@ module.exports = class Plugin {
         if (!this.hasInit) {
             console.log('[DEV ENV] Plugin didn\'t initialize?');
         }
+    }
+
+    setJSClientHook(hook) {
+        console.log("[DEV ENV] Setting JS Client Hook to " + hook)
+        this.jsCHook = hook;
+    }
+
+    setJSSocketHook(hook) {
+        console.log("[DEV ENV] Setting JS Socket Hook to " + hook)
+        this.jsSockHook = hook;
+    }
+
+    setJSServerHook(hook) {
+        console.log("[DEV ENV] Setting JS Server Hook to " + hook)
+        this.jsSHook = hook;
+    }
+
+    getJSSocketHook() {
+        console.log("[DEV ENV] Getting JS Socket Hook")
+        return this.jsSockHook;
+    }
+
+    getJSServerHook() {
+        console.log("[DEV ENV] Getting JSS Hook")
+        return this.jsSHook;
+    }
+
+    getJSClientHook() {
+        console.log("[DEV ENV] Getting JSC Hook")
+        return this.jsCHook;
     }
 
     createSaveData() {
@@ -50,11 +83,15 @@ module.exports = class Plugin {
 
     pushNotification(value, options=null) {
         if (!options) console.log('[DEV ENV] Notification body: ' + value)
-        if (options != {}) {
+        if (options != {} && options != null) {
             if (options.image) {
                 console.log('[DEV ENV] Notification image: ' + options.image, 'Notification body: ' + value);
             }
         }
+    }
+
+    addImport(file) {
+        console.log('[DEV ENV] Added import: ' + file);
     }
 
     registerNewType (name, type) {

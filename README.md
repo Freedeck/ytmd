@@ -27,3 +27,6 @@ Running a plugin uses a simulated Plugin class. This means you don't need to kee
 To build and run your plugin in the dev env, just do `node index.js` and let FreedeckDevEnv do the rest!  
 
 Very much magic.
+
+## JS Hooks? What?
+JS hooks are a powerful feature introduced in Plugins v2. They allow you to expand Freedeck Companion's functionality, just check out JSHookExample.src to see how to use them!
