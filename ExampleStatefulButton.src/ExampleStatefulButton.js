@@ -42,6 +42,6 @@ class ExampleStatefulButton extends Plugin {
 }
 
 module.exports = {
-	exec: () => new ExamplePlugin(),
- 	class: ExamplePlugin
+	exec: () => new ExampleStatefulButton(),
+ 	class: ExampleStatefulButton
 }
