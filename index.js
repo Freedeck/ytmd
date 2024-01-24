@@ -23,8 +23,8 @@ const FDE_Settings = {
 function buildPhase() {
 	return new Promise((resolve, reject) => {
 		console.log('Building!')
-		asar.createPackage(FDE_Settings.BundlePrebuild + ".src", FDE_Settings.BundleName).then(() => {
-			cpSync(path.resolve(FDE_Settings.BundleName), path.resolve('./plugins/' + FDE_Settings.BundleName))
+		asar.createPackage(FDE_Settings.BundlePrebuild + ".src",  path.resolve('./plugins/' + FDE_Settings.BundleName)).then(() => {
+			cpSync(path.resolve(FDE_Settings.BundleName), path.resolve('./build/' + FDE_Settings.BundleName))
 
 			AsarBundleRunner.extract("./plugins/"+FDE_Settings.BundleName).then(bundleName => {
 				AsarBundleRunner.run(bundleName).then(output => {

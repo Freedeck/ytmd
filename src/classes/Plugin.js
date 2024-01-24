@@ -65,12 +65,14 @@ module.exports = class Plugin {
           }
           if (!fs.existsSync(path.resolve('./plugins/'+this.id+'/settings.json'))) {
             fs.writeFileSync(path.resolve('./plugins/'+this.id+'/settings.json'), JSON.stringify({}));
+            console.log('Created '+this.id+' settings file!')
           }
     }
 
     getFromSaveData(k) {
         this.createSaveData()
         let data = JSON.parse(fs.readFileSync(path.resolve('./plugins/'+this.id+'/settings.json')));
+        console.log('[DEV ENV] Getting from save data: ' + k)
         return data[k];
     }
 
@@ -78,6 +80,7 @@ module.exports = class Plugin {
         this.createSaveData();
         let data = JSON.parse(fs.readFileSync(path.resolve('./plugins/'+this.id+'/settings.json')));
         data[k] = v;
+        console.log('[DEV ENV] Setting save data: ' + k + ' to ' + v)
         fs.writeFileSync(path.resolve('./plugins/'+this.id+'/settings.json'), JSON.stringify(data));
     }
 
@@ -105,6 +108,10 @@ module.exports = class Plugin {
 
     onButton (interaction) {
         console.log('[DEV ENV] This plugin has no button press function.')
+        return true;
+    }
+
+    isDev() {
         return true;
     }
 }
