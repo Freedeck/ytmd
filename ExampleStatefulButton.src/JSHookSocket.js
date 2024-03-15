@@ -8,6 +8,6 @@
 
 module.exports = (socket, io, instance) => {
 	instance.stateChange = (data) => {
-		socket.emit('haf.statechange', data);
+		socket.emit('sfb.statechange', data);
 	}
 }
