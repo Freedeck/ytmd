@@ -31,5 +31,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.3.1
       with:
-        name: linux-${{ matrix.node-version }}.Freedeck
+        name: linux-x64-node-${{ matrix.node-version }}.Freedeck
         path: ./plugins/*.Freedeck
