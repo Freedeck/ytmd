@@ -1,4 +1,4 @@
-universal.on('sfb.statechange', (data) => {
+universal.on('haf.statechange', (data) => {
 	document.querySelectorAll('.button').forEach((button) => {
 	  if (button.getAttribute('data-interaction')) {
 		let dat = button.getAttribute('data-interaction');
