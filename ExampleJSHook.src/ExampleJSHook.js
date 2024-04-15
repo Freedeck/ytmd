@@ -9,9 +9,9 @@ class ExamplePlugin extends Plugin {
 
     onInitialize () {
         console.log('Initialized example js hook plugin.')
-        this.setJSServerHook("JSHookServer.js");
-        this.setJSClientHook("JSHookClient.js");
-        this.setJSSocketHook("JSHookSocket.js");
+        this.setJSServerHook("examplejsh/server.js");
+        this.setJSClientHook("examplejsh/client.js");
+        this.setJSSocketHook("examplejsh/socket.js");
         this.registerNewType('Example JSHook Test', 'fd.example.jshook');
         // This is all you need to do. Freedeck will do all of the logic for you.
         return true;
