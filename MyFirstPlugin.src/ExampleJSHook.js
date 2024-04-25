@@ -4,14 +4,15 @@ const Plugin = require(path.resolve('./src/classes/Plugin'));
 class ExamplePlugin extends Plugin {
     constructor() {
         // With JS Hooks, you must keep the ID of your plugin the name of the source folder.
-        super('Freedeck 6: Example JS Hooks', 'Freedeck', 'ExampleJSHook', false);
+        super('My First Plugin', 'Me', 'MyFirstPlugin', false);
     }
 
     onInitialize () {
-        console.log('Initialized example js hook plugin.')
-        this.setJSServerHook("examplejsh/server.js");
-        this.setJSClientHook("examplejsh/client.js");
-        this.setJSSocketHook("examplejsh/socket.js");
+        console.log('Initialized my first plugin!')
+        this.setJSServerHook("mfp/server.js");
+        this.setJSClientHook("mfp/client.js");
+        this.setJSSocketHook("mfp/socket.js");
+        this.addImport("mfp/myCoolStyle.css");
         this.registerNewType('Example JSHook Test', 'fd.example.jshook');
         // This is all you need to do. Freedeck will do all of the logic for you.
         return true;

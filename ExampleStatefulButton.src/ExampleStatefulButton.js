@@ -10,6 +10,7 @@ class ExampleStatefulButton extends Plugin {
     }
 
     onInitialize () {
+        // This is an advanced plugin example!
         console.log('Initialized example stateful button plugin.')
         this.setJSServerHook("JSHookServer.js");
         this.setJSClientHook("JSHookClient.js");
