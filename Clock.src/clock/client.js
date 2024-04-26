@@ -5,6 +5,8 @@ setInterval(() => {
 		  dat = JSON.parse(dat);
 		  if (dat.type == 'clock.time') {
 			button.innerText = new Date(Date.now()).toLocaleTimeString();
+		  } else if (dat.type == 'clock.date') {
+			button.innerText = new Date(Date.now()).toLocaleDateString();
 		  }
 		}
 	  });

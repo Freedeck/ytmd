@@ -12,6 +12,7 @@ class Clock extends Plugin {
         this.setJSServerHook("clock/server.js");
         this.setJSClientHook("clock/client.js");
         this.registerNewType('Clock: Time', 'clock.time');
+        this.registerNewType('Clock: Date', 'clock.date');
         // This is all you need to do. Freedeck will do all of the logic for you.
         return true;
     }
