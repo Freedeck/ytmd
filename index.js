@@ -9,11 +9,11 @@ const { exec } = require('node:child_process');
  * - Edit the FDE_Settings object below to configure your environment.
  */
 
-let name = 'MyFirstPlugin'
+let name = 'Clock'
 let bundleName = name + '.Freedeck'
 // let bundleName = 'ExamplePlugin.Freedeck'
 const FDE_Settings = {
-	test: true,
+	test: false,
 	UseScripts: true,
 	BundlePrebuild: name,
 	BundleName: bundleName,
