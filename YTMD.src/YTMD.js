@@ -120,6 +120,7 @@ class YTMD extends Plugin {
         } else if (interaction.type.includes('ytmd.slider.vol')) {
             this.command('http://localhost:9863', this.pswd, 'player-set-volume', parseInt(interaction.data.value)).then((res) => {
                 console.log('Sent command to YTMD!');
+                this.emitAllYVol();
             })
             .catch((err) => {
                 console.error(err)
@@ -138,6 +139,7 @@ class YTMD extends Plugin {
     }
 
     stateChange(){}
+    emitAllYVol(){}
 }
 
 module.exports = {
