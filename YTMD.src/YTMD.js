@@ -25,7 +25,6 @@ class YTMD extends Plugin {
             }).then((res) => res.json()).then((res)=> {
                 resolvePro(res)
             }).catch((err) => {
-                rej(err)
             })
         })
     }
@@ -44,7 +43,6 @@ class YTMD extends Plugin {
             }).then((res) => res.json()).then((res)=>{
                 resolvePro(res)
             }).catch((err) => {
-                rej(err)
             })
         })
     }
