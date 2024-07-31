@@ -2,10 +2,17 @@ const path = require("path");
 const Plugin = require(path.resolve('./src/classes/Plugin'));
 
 class YTMD extends Plugin {
+    pswd;
     constructor() {
         // With JS Hooks, you must keep the ID of your plugin the name of the source folder.
         super('YouTube Music Desktop Controller', 'Freedeck', 'YTMD', false);
+        this.createSaveData();
         this.version = '1.0.0';
+        if(!this.getFromSaveData('pswd')) {
+            this.setToSaveData('pswd', 'Change me!')
+            console.log('You have not set your password for YTMD. Please set it in the plugin settings, or turn off password protection in the YTMD settings.')
+        }
+        this.pswd = this.getFromSaveData('pswd');
     }
 
     query(url, pw, action='') {
@@ -78,15 +85,16 @@ class YTMD extends Plugin {
             },
         ]
         simple.forEach((button) => {
-            this.registerNewType('YTMD: Do ' + button.name, 'ytmd.cmd.' + button.command)
+            this.registerNewType('YTMD ' + button.name, 'ytmd.cmd.' + button.command)
         });
+        this.registerNewType('YTMD Volume Slider', 'ytmd.slider.vol', {min: 0, max: 100, value: 50, direction:'vertical'}, 'slider');
         this.setJSClientHook('ytmd/mainHook.js');
         this.setJSServerHook('ytmd/mainHook.js');
         this.setJSSocketHook('ytmd/sock.js');
 
         setInterval(() => {
-            this.query('http://localhost:9863', 'G7AQT', 'track').then((res1) => {
-                this.query('http://localhost:9863', 'G7AQT', 'player').then((res2) => {
+            this.query('http://localhost:9863', this.pswd, 'track').then((res1) => {
+                this.query('http://localhost:9863', this.pswd, 'player').then((res2) => {
                     if(lastSong != res1.title+'-'+res1.author) {
                         this.pushNotification('Now playing: ' + res1.title + ' by ' + res1.author, {
                             image: res1.image
@@ -103,13 +111,30 @@ class YTMD extends Plugin {
 
     onButton(interaction) {
         if (interaction.type.includes('ytmd.cmd.')) {
-            this.command('http://localhost:9863', 'G7AQT', interaction.type.split('ytmd.cmd.')[1]).then((res) => {
+            this.command('http://localhost:9863', this.pswd, interaction.type.split('ytmd.cmd.')[1]).then((res) => {
+                console.log('Sent command to YTMD!');
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        } else if (interaction.type.includes('ytmd.slider.vol')) {
+            this.command('http://localhost:9863', this.pswd, 'player-set-volume', parseInt(interaction.data.value)).then((res) => {
                 console.log('Sent command to YTMD!');
             })
             .catch((err) => {
                 console.error(err)
             })
         }
+    }
+
+    ytmdVol() {
+        return new Promise((resolvePro, rej) => {
+            this.query('http://localhost:9863', this.pswd, 'player').then((res) => {
+                resolvePro(res.volumePercent)
+            }).catch((err) => {
+                rej(err)
+            })
+        });
     }
 
     stateChange(){}
