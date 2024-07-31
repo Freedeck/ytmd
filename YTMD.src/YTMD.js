@@ -7,7 +7,7 @@ class YTMD extends Plugin {
         // With JS Hooks, you must keep the ID of your plugin the name of the source folder.
         super('YouTube Music Desktop Controller', 'Freedeck', 'YTMD', false);
         this.createSaveData();
-        this.version = '1.0.0';
+        this.version = '1.0.2';
         if(!this.getFromSaveData('pswd')) {
             this.setToSaveData('pswd', 'Change me!')
             console.log('You have not set your password for YTMD. Please set it in the plugin settings, or turn off password protection in the YTMD settings.')
@@ -131,7 +131,6 @@ class YTMD extends Plugin {
             this.query('http://localhost:9863', this.pswd, 'player').then((res) => {
                 resolvePro(res.volumePercent)
             }).catch((err) => {
-                rej(err)
             })
         });
     }
