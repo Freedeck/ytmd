@@ -5,7 +5,7 @@ class YTMD extends Plugin {
     pswd;
     constructor() {
         // With JS Hooks, you must keep the ID of your plugin the name of the source folder.
-        super('YouTube Music Desktop Controller', 'Freedeck', 'YTMD', false);
+        super('YouTube Music Desktop', 'Freedeck', 'YTMD', false);
         this.createSaveData();
         this.version = '1.0.2';
         if(!this.getFromSaveData('pswd')) {
@@ -83,9 +83,9 @@ class YTMD extends Plugin {
             },
         ]
         simple.forEach((button) => {
-            this.registerNewType('YTMD ' + button.name, 'ytmd.cmd.' + button.command)
+            this.registerNewType(button.name, 'ytmd.cmd.' + button.command)
         });
-        this.registerNewType('YTMD Volume Slider', 'ytmd.slider.vol', {min: 0, max: 100, value: 50, direction:'vertical'}, 'slider');
+        this.registerNewType('Music Volume', 'ytmd.slider.vol', {min: 0, max: 100, value: 50, direction:'vertical'}, 'slider');
         this.setJSClientHook('ytmd/mainHook.js');
         this.setJSServerHook('ytmd/mainHook.js');
         this.setJSSocketHook('ytmd/sock.js');
